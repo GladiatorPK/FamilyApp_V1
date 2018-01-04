@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/Image_Shuffle"
+        android:layout_width="match_parent"
+        android:layout_height="118dp"
+        app:srcCompat="@drawable/shuffle1" />
+
+    <Button
+        android:id="@+id/button_shuffle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="shuffle_onClick"
+        android:text="@string/button_shuffle" />
+</LinearLayout>
