@@ -31,7 +31,7 @@
 
         <activity
             android:name=".Waehrungsrechner_Activity"
-            android:label="@string/title_activity_shuffle"
+            android:label="@string/title_activity_Waerungsrechner"
             android:parentActivityName=".HomeScreen_Activity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

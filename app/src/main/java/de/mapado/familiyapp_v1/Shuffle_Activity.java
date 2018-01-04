@@ -16,7 +16,7 @@ import java.util.Random;
  */
 
 public class Shuffle_Activity extends AppCompatActivity {
-
+int counter = 2;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,7 +47,14 @@ public class Shuffle_Activity extends AppCompatActivity {
 
     public void shuffle_onClick(View view) {
 
-            new CountDownTimer(1800, 300) {
+        if(counter == 2){
+            counter = 1;
+
+
+            CountDownTimer countDown= new CountDownTimer(1800, 300) {
+
+
+
 
                 public void onTick(long millisUntilFinished) {
 
@@ -87,10 +94,12 @@ public class Shuffle_Activity extends AppCompatActivity {
                 public void onFinish() {
                  //   Toast.makeText(HomeScreen_Activity.this, "Einstellungen wurde geklickt." ,
                   //          Toast.LENGTH_SHORT).show();
+
+                    counter = 2;
                 }
             }.start();
+        }}
 
-    }
 
 }
 
