@@ -47,10 +47,16 @@ public class HomeScreen_Activity extends AppCompatActivity {
                                     int position, long id) {
                 Toast.makeText(HomeScreen_Activity.this, "Feld " + position +  " wurde angeklickt." ,
                         Toast.LENGTH_SHORT).show();
-                if (position == 5){
-                Shuffle_Activity_aufruf();
 
-            }
+                switch (position){
+                    case 5: Shuffle_Activity_aufruf();
+                    break;
+                    case 4: Waehrungsrechner_Activity_aufruf();
+                    break;
+                  //  default: return;
+
+                }
+
         }
         });
 
@@ -59,6 +65,12 @@ public class HomeScreen_Activity extends AppCompatActivity {
     private void Shuffle_Activity_aufruf() {
         Intent Shuffle = new Intent(this, Shuffle_Activity.class);
         startActivity(Shuffle);
+
+    }
+
+    private void Waehrungsrechner_Activity_aufruf() {
+        Intent Waehrungsrechner = new Intent(this, Waehrungsrechner_Activity.class);
+        startActivity(Waehrungsrechner);
 
     }
 

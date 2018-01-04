@@ -29,6 +29,15 @@
                 android:value="de.mapado.familiyapp_v1.HomeScreen_Activity" />
         </activity>
 
-</application>
+        <activity
+            android:name=".Waehrungsrechner_Activity"
+            android:label="@string/title_activity_shuffle"
+            android:parentActivityName=".HomeScreen_Activity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="de.mapado.familiyapp_v1.HomeScreen_Activity" />
+        </activity>
+
+    </application>
 
 </manifest>
