@@ -7,12 +7,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.GridView;
 import android.widget.Toast;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 
 /**
@@ -27,20 +23,8 @@ public class HomeScreen_Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_homescreen);
 
-
-         String [] ToolList = {
-                "Taschenrechner",
-                "Einkaufsliste",
-                "Forum",
-                "Terminkalender",
-                "Währungsrechner",
-                "Weihnachtswürfel",
-                };
-
-        List<String> ToolListString = new ArrayList<>(Arrays.asList(ToolList));
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, ToolListString);
         GridView gridview = (GridView) findViewById(R.id.gridview);
-        gridview.setAdapter(adapter);
+        gridview.setAdapter(new ImageAdapter_Homescreen(this));
 
         gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v,
@@ -50,16 +34,14 @@ public class HomeScreen_Activity extends AppCompatActivity {
 
                 switch (position){
                     case 5: Shuffle_Activity_aufruf();
-                    break;
+                        break;
                     case 4: Waehrungsrechner_Activity_aufruf();
-                    break;
-                  //  default: return;
+                        break;
+                    //  default: return;
 
                 }
-
-        }
+            }
         });
-
     }
 
     private void Shuffle_Activity_aufruf() {
