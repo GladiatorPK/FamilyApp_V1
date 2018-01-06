@@ -127,8 +127,8 @@ public class Waehrungsrechner_Activity extends AppCompatActivity {
 
             // Hier parsen wir später die XML Aktiendaten
 
-         //   return leseXmlAktiendatenAus(waehrungsdatenXmlString);
-        return null;
+            return leseXmlWaehrungsdatenAus(waehrungsdatenXmlString);
+     //   return null;
         }
 
         @Override
@@ -178,31 +178,31 @@ public class Waehrungsrechner_Activity extends AppCompatActivity {
                 return null;
             }
 
-            Element xmlAktiendaten = doc.getDocumentElement();
-            NodeList aktienListe = xmlAktiendaten.getElementsByTagName("row");
+            Element xmlWaehrungsdaten = doc.getDocumentElement();
+            NodeList waehrungsListe = xmlWaehrungsdaten.getElementsByTagName("Cube");
 
-            int anzahlAktien = aktienListe.getLength();
-            int anzahlAktienParameter = aktienListe.item(0).getChildNodes().getLength();
+            int anzahlWaehrungen = waehrungsListe.getLength();
+            int anzahlWaehrungsParameter = waehrungsListe.item(0).getChildNodes().getLength();
 
-            String[] ausgabeArray = new String[anzahlAktien];
-            String[][] alleAktienDatenArray = new String[anzahlAktien][anzahlAktienParameter];
+            String[] ausgabeArray = new String[anzahlWaehrungen];
+            String[][] alleWaehrungsDatenArray = new String[anzahlWaehrungen][anzahlWaehrungsParameter];
 
             Node aktienParameter;
             String aktienParameterWert;
-            for( int i=0; i<anzahlAktien; i++ ) {
-                NodeList aktienParameterListe = aktienListe.item(i).getChildNodes();
+            for( int i=0; i<anzahlWaehrungen; i++ ) {
+                NodeList aktienParameterListe = waehrungsListe.item(i).getChildNodes();
 
-                for (int j=0; j<anzahlAktienParameter; j++) {
+                for (int j=0; j<anzahlWaehrungsParameter; j++) {
                     aktienParameter = aktienParameterListe.item(j);
                     aktienParameterWert = aktienParameter.getFirstChild().getNodeValue();
-                    alleAktienDatenArray[i][j] = aktienParameterWert;
+                    alleWaehrungsDatenArray[i][j] = aktienParameterWert;
                 }
 
-                ausgabeArray[i]  = alleAktienDatenArray[i][0];                // symbol
-                ausgabeArray[i] += ": " + alleAktienDatenArray[i][4];         // price
-                ausgabeArray[i] += " " + alleAktienDatenArray[i][2];          // currency
-                ausgabeArray[i] += " (" + alleAktienDatenArray[i][8] + ")";   // percent
-                ausgabeArray[i] += " - [" + alleAktienDatenArray[i][1] + "]"; // name
+                ausgabeArray[i]  = alleWaehrungsDatenArray[i][0];                // symbol
+                ausgabeArray[i] += ": " + alleWaehrungsDatenArray[i][4];         // price
+                ausgabeArray[i] += " " + alleWaehrungsDatenArray[i][2];          // currency
+                ausgabeArray[i] += " (" + alleWaehrungsDatenArray[i][8] + ")";   // percent
+                ausgabeArray[i] += " - [" + alleWaehrungsDatenArray[i][1] + "]"; // name
 
                 Log.v(LOG_TAG,"XML Output:" + ausgabeArray[i]);
             }
