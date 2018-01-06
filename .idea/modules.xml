@@ -3,9 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/FamiliyApp_V1.iml" filepath="$PROJECT_DIR$/FamiliyApp_V1.iml" />
-      <module fileurl="file://C:\Users\dominik\AndroidStudioProjects\FamilyApp_V1\FamiliyApp_V1.iml" filepath="C:\Users\dominik\AndroidStudioProjects\FamilyApp_V1\FamiliyApp_V1.iml" />
-      <module fileurl="file://C:\Users\patrick\AndroidStudioProjects\FamiliyApp_V1\FamilyApp_V1.iml" filepath="C:\Users\patrick\AndroidStudioProjects\FamiliyApp_V1\FamilyApp_V1.iml" />
-      <module fileurl="file://C:\Users\patrick\AndroidStudioProjects\FamiliyApp_V1\.idea\FamilyApp_V1.iml" filepath="C:\Users\patrick\AndroidStudioProjects\FamiliyApp_V1\.idea\FamilyApp_V1.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>
