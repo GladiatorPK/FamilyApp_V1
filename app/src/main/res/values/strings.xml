@@ -4,4 +4,5 @@
     <string name="button_shuffle">Shuffle</string>
     <string name="title_activity_shuffle">Würfel</string>
     <string name="title_activity_Waerungsrechner">Währungsrechner</string>
+    <string name="Cube">currency</string>
 </resources>

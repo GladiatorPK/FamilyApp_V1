@@ -6,14 +6,18 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
+import org.xmlpull.v1.XmlPullParser;
+import org.xmlpull.v1.XmlPullParserFactory;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -22,6 +26,7 @@ import java.io.InputStreamReader;
 import java.io.StringReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Currency;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -32,11 +37,18 @@ import javax.xml.parsers.ParserConfigurationException;
  */
 
 public class Waehrungsrechner_Activity extends AppCompatActivity {
-
+String [] WaehrungenAktualisiert;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_waehrungsrechner);
+
+        // Erzeugen einer Instanz von HoleDatenTask
+        HoleDatenTask holeDatenTask = new HoleDatenTask();
+        holeDatenTask.execute();
+
+        final TextView helloTextView = (TextView) findViewById(R.id.editText_Waehrungsrechener);
+  //      helloTextView.setText("Hallo");
 
     }
 
@@ -57,9 +69,6 @@ public class Waehrungsrechner_Activity extends AppCompatActivity {
         if (id == R.id.action_settings) {
             Toast.makeText(this, "Einstellungen wurde geklickt.",
                     Toast.LENGTH_SHORT).show();
-            // Erzeugen einer Instanz von HoleDatenTask
-            HoleDatenTask holeDatenTask = new HoleDatenTask();
-            holeDatenTask.execute();
         }
         return true;
     }
@@ -125,10 +134,9 @@ public class Waehrungsrechner_Activity extends AppCompatActivity {
                 }
             }
 
-            // Hier parsen wir später die XML Aktiendaten
+            // Hier parsen wir die XML Aktiendaten
 
             return leseXmlWaehrungsdatenAus(waehrungsdatenXmlString);
-     //   return null;
         }
 
         @Override
@@ -147,20 +155,20 @@ public class Waehrungsrechner_Activity extends AppCompatActivity {
             // Wir löschen den Inhalt des ArrayAdapters und fügen den neuen Inhalt ein
             // Der neue Inhalt ist der Rückgabewert von doInBackground(String...) also
             // der StringArray gefüllt mit Beispieldaten
-    /*       if (strings != null) {
-                mAktienlisteAdapter.clear();
-                for (String aktienString : strings) {
-                    mAktienlisteAdapter.add(aktienString);
-                }
+           if (strings != null) {
+                WaehrungenAktualisiert = strings;
             }
-*/            // Hintergrundberechnungen sind jetzt beendet, darüber informieren wir den Benutzer
+           // Hintergrundberechnungen sind jetzt beendet, darüber informieren wir den Benutzer
             Toast.makeText(getApplicationContext(), "Aktiendaten vollständig geladen!",
                     Toast.LENGTH_SHORT).show();
  //           mSwipeRefreshLayout.setRefreshing(false);
       }
-       private String[] leseXmlWaehrungsdatenAus(String xmlString) {
 
-            Document doc;
+        public String[] leseXmlWaehrungsdatenAus(String xmlString) {
+
+
+
+           Document doc;
             DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
             try {
                 DocumentBuilder db = dbf.newDocumentBuilder();
@@ -181,34 +189,22 @@ public class Waehrungsrechner_Activity extends AppCompatActivity {
             Element xmlWaehrungsdaten = doc.getDocumentElement();
             NodeList waehrungsListe = xmlWaehrungsdaten.getElementsByTagName("Cube");
 
+
             int anzahlWaehrungen = waehrungsListe.getLength();
-            int anzahlWaehrungsParameter = waehrungsListe.item(0).getChildNodes().getLength();
 
             String[] ausgabeArray = new String[anzahlWaehrungen];
-            String[][] alleWaehrungsDatenArray = new String[anzahlWaehrungen][anzahlWaehrungsParameter];
+            ausgabeArray [0] = "Letzte Aktualisierung: " + waehrungsListe.item(1).getAttributes().item(0).getNodeValue();
+           Log.v(LOG_TAG,"XML Output:" + ausgabeArray[0]);
 
-            Node aktienParameter;
-            String aktienParameterWert;
-            for( int i=0; i<anzahlWaehrungen; i++ ) {
-                NodeList aktienParameterListe = waehrungsListe.item(i).getChildNodes();
-
-                for (int j=0; j<anzahlWaehrungsParameter; j++) {
-                    aktienParameter = aktienParameterListe.item(j);
-                    aktienParameterWert = aktienParameter.getFirstChild().getNodeValue();
-                    alleWaehrungsDatenArray[i][j] = aktienParameterWert;
-                }
-
-                ausgabeArray[i]  = alleWaehrungsDatenArray[i][0];                // symbol
-                ausgabeArray[i] += ": " + alleWaehrungsDatenArray[i][4];         // price
-                ausgabeArray[i] += " " + alleWaehrungsDatenArray[i][2];          // currency
-                ausgabeArray[i] += " (" + alleWaehrungsDatenArray[i][8] + ")";   // percent
-                ausgabeArray[i] += " - [" + alleWaehrungsDatenArray[i][1] + "]"; // name
-
-                Log.v(LOG_TAG,"XML Output:" + ausgabeArray[i]);
+            for( int i=2; i<anzahlWaehrungen; i++ ) {
+                ausgabeArray [i - 1] = waehrungsListe.item(i).getAttributes().item(0).getNodeValue() + " " + waehrungsListe.item(i).getAttributes().item(1).getNodeValue();
+                Log.v(LOG_TAG,"XML Output:" + ausgabeArray[i-1]);
             }
-
             return ausgabeArray;
-        }
+
+
+    }
+
     }
 
 }
