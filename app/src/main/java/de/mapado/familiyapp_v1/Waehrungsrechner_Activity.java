@@ -6,6 +6,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,7 +29,10 @@ import java.io.InputStreamReader;
 import java.io.StringReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Currency;
+import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -37,25 +43,66 @@ import javax.xml.parsers.ParserConfigurationException;
  */
 
 public class Waehrungsrechner_Activity extends AppCompatActivity {
-String [] WaehrungenAktualisiert;
+    String [] WaehrungenAktualisiert;
+    ArrayAdapter<String> waehrungsadapter;
+
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_waehrungsrechner);
 
-        // Erzeugen einer Instanz von HoleDatenTask
-        HoleDatenTask holeDatenTask = new HoleDatenTask();
+        String [] WaehrungenAktualisiert = {
+                "USD: 1.2045",
+                "JPY: 136.45",
+                "BGN: 1.9558",
+                "CZK: 25.594",
+                "DKK: 7.4459",
+                "GBP: 0.88883",
+                "HUF: 308.77",
+                "PLN: 4.1554",
+                "RON: 4.6351",
+                "SEK: 9.8318",
+                "CHF: 1.1757",
+                "NOK: 9.7418",
+                "HRK: 7.4350",
+                "RUB: 68.7724",
+                "TRY: 4.5127",
+                "AUD: 1.5361",
+                "BRL: 3.9057",
+                "CAD: 1.5068",
+                "CNY: 7.8151",
+                "HKD: 9.4188",
+                "IDR: 16164.39",
+                "ILS: 4.1402",
+                "INR: 76.3290",
+                "KRW: 1281.20",
+                "MXN: 23.3267",
+                "MYR: 4.8180",
+                "NZD: 1.6837",
+                "PHP: 60.065",
+                "SGD: 1.5993",
+                "THB: 38.773",
+                "ZAR: 14.8886"
+        };
+
+      // Erzeugen einer Instanz von HoleDatenTask
+       HoleDatenTask holeDatenTask = new HoleDatenTask();
         holeDatenTask.execute();
 
-        final TextView helloTextView = (TextView) findViewById(R.id.editText_Waehrungsrechener);
-  //      helloTextView.setText("Hallo");
+    Spinner spinner1 = (Spinner) findViewById(R.id.spinner_waehrungsrechner1);
+    Spinner spinner2 = (Spinner) findViewById(R.id.spinner_waehrungsrechner2);
+    ArrayAdapter<String> waehrungsadapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, WaehrungenAktualisiert);
+    spinner1.setAdapter(waehrungsadapter);
+    spinner2.setAdapter(waehrungsadapter);
+
 
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_homescreen, menu);
+        getMenuInflater().inflate(R.menu.menu_waehrungsrechner, menu);
         return true;
     }
 
@@ -66,8 +113,21 @@ String [] WaehrungenAktualisiert;
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        if (id == R.id.action_settings) {
-            Toast.makeText(this, "Einstellungen wurde geklickt.",
+        if (id == R.id.action_daten_aktualisieren) {
+
+            HoleDatenTask holeDatenTask = new HoleDatenTask();
+            holeDatenTask.execute();
+
+
+            Spinner spinner1 = (Spinner) findViewById(R.id.spinner_waehrungsrechner1);
+            Spinner spinner2 = (Spinner) findViewById(R.id.spinner_waehrungsrechner2);
+            ArrayAdapter<String> waehrungsadapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, WaehrungenAktualisiert);
+            spinner1.setAdapter(waehrungsadapter);
+            spinner2.setAdapter(waehrungsadapter);
+
+
+
+            Toast.makeText(this, "Aktualisieren wurde geklickt.",
                     Toast.LENGTH_SHORT).show();
         }
         return true;
@@ -159,7 +219,7 @@ String [] WaehrungenAktualisiert;
                 WaehrungenAktualisiert = strings;
             }
            // Hintergrundberechnungen sind jetzt beendet, darüber informieren wir den Benutzer
-            Toast.makeText(getApplicationContext(), "Aktiendaten vollständig geladen!",
+            Toast.makeText(getApplicationContext(), "Währungsdaten vollständig geladen!",
                     Toast.LENGTH_SHORT).show();
  //           mSwipeRefreshLayout.setRefreshing(false);
       }

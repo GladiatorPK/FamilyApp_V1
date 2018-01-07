@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Familien App</string>
     <string name="action_settings">Einstellungen</string>
+    <string name="aktualisiere_daten_settings">Aktualisieren</string>
     <string name="button_shuffle">Shuffle</string>
     <string name="title_activity_shuffle">Würfel</string>
     <string name="title_activity_Waerungsrechner">Währungsrechner</string>

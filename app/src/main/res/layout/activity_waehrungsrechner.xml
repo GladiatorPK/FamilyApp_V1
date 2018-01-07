@@ -19,14 +19,16 @@
         android:focusableInTouchMode="true">
 
         <Spinner
-            android:id="@+id/spinner_Währungsrechner1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:id="@+id/spinner_waehrungsrechner1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
 
         <Spinner
-            android:id="@+id/spinner_Währungsrechner2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:id="@+id/spinner_waehrungsrechner2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
     </LinearLayout>
 
     <LinearLayout
